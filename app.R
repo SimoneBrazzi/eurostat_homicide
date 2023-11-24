@@ -54,7 +54,7 @@ ui <- fluidPage(
                                  inputId = "unit_vrel",
                                  label = "Unit",
                                  choices = crim_hom_vrel$unit %>% str_unique(),
-                                 multiple = TRUE,
+                                 multiple = FALSE,
                                  selected = "Number"
                                  )
                                ),
