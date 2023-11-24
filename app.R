@@ -7,11 +7,6 @@
 #    http://shiny.rstudio.com/
 #
 
-library(tidyverse)
-library(shiny)
-library(shinythemes)
-library(ggplot2)
-library(plotly)
 
 
 # Define UI for application that draws a histogram
@@ -74,7 +69,7 @@ ui <- fluidPage(
 
 
 # Define server logic required to draw a histogram
-server <- function(input, output) {
+server <- function(input, output, session) {
   
   # set dark theme for all plots
   thematic::thematic_shiny()

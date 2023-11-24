@@ -1,7 +1,3 @@
-library(tidyverse)
-library(lubridate)
-library(eurostat)
-
 # search in eurostat db
 homicide <- search_eurostat("homicide")
 # check title and code
@@ -21,7 +17,7 @@ crim_hom_vrel <- crim_hom_vrel %>%
 
 
 # check unique values for all columns
-map(crim_hom_vrel, ~ .x %>% str_unique())
+# map(crim_hom_vrel, ~ .x %>% str_unique())
 
 # check column type
-glimpse(crim_hom_vrel)
+# glimpse(crim_hom_vrel)
