@@ -108,7 +108,9 @@ server <- function(input, output, session) {
                    "Intimate partner" = "#B2DF8A",
                    "Intimate partner or family member" = "#A6CEE3"
                    )
-      )
+      )+
+      labs(x = "Sex",
+           y = input$unit_vrel_bar)
     ggplotly(g) %>% 
       layout(hovermode = "x")
   })
@@ -156,7 +158,9 @@ server <- function(input, output, session) {
                    "From 45 to 59 years" = "#FB9A99",
                    "60 years or over" = "#E31A1C",
                    "Total" = "#A6CEE3")
-      )
+      )+
+      labs(x = "Sex",
+           y = input$unit_vage_bar)
     # ggplotly interactivity
     ggplotly(g) %>% 
       layout(hovermode = "x")
@@ -203,7 +207,9 @@ server <- function(input, output, session) {
           values = c("Intentional homicide" = "#A6CEE3",
                      "Rape" = "#1F78B4",
                      "Sexual assault" = "#B2DF8A")
-        )
+        )+
+        labs(x = "Sex",
+             y = input$unit_soff_bar)
       # ggplotly interactivity
       ggplotly(g) %>% 
         layout(hovermode = "x")
