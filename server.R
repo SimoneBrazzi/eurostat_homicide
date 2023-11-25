@@ -4,7 +4,7 @@ server <- function(input, output, session) {
   # set dark theme for all plots
   thematic::thematic_shiny()
   
-  # crim_hom_vrel
+  # crim_hom_vrel lineplot
   data_crim_hom_vrel <- reactive(crim_hom_vrel %>% 
                                    filter(
                                      pers_cat %in% input$pers_cat_vrel & 
@@ -14,13 +14,32 @@ server <- function(input, output, session) {
                                    ) # closing filter
                                  ) # closing reactive
   
-  # crim_hom_vage
+  # crim_hom_vrel stacked barchart
+  data_crim_hom_vrel_bar <- reactive(crim_hom_vrel %>% 
+                                   filter(
+                                     pers_cat %in% input$pers_cat_vrel_bar & 
+                                       sex %in% input$sex_vrel_bar & 
+                                       unit %in% input$unit_vrel_bar & 
+                                       geo %in% input$geo_vrel_bar
+                                   ) # closing filter
+  ) # closing reactive
+  
+  # crim_hom_vage lineplot
   data_crim_hom_vage <- reactive(crim_hom_vage %>% 
                                    filter(
                                      age %in% input$age_vage & 
                                        sex %in% input$sex_vage & 
                                        unit %in% input$unit_vage & 
                                        geo %in% input$geo_vage
+                                   ) # closing filter
+  ) # closing reactive
+  # crim_hom_vage stacked barchart
+  data_crim_hom_vage_bar <- reactive(crim_hom_vage %>% 
+                                   filter(
+                                     age %in% input$age_vage_bar & 
+                                       sex %in% input$sex_vage_bar & 
+                                       unit %in% input$unit_vage_bar & 
+                                       geo %in% input$geo_vage_bar
                                    ) # closing filter
   ) # closing reactive
 
@@ -47,6 +66,16 @@ server <- function(input, output, session) {
       labs(x = "Time",
            y = input$unit_vrel
       )
+    ggplotly(g) %>% 
+      layout(hovermode = "x")
+  })
+  
+  # crim_hom_vrel stackedBarchart
+  output$barChart_vrel <- renderPlotly({
+    g <- ggplot(data = data_crim_hom_vrel_bar(),
+                aes(x = sex, y = values, fill = pers_cat)
+                )+
+      geom_bar(stat = "identity")
     ggplotly(g) %>% 
       layout(hovermode = "x")
   })
@@ -78,6 +107,18 @@ server <- function(input, output, session) {
         
     
   }) # close renderPlotly
+    
+    
+    # crim_hom_vrel stackedBarchart
+    output$barChart_vage <- renderPlotly({
+      g <- ggplot(data = data_crim_hom_vage_bar(),
+                  aes(x = sex, y = values, fill = age)
+      )+
+        geom_bar(stat = "identity")
+      ggplotly(g) %>% 
+        layout(hovermode = "x")
+    })
+  
   
 } # close server function
 
