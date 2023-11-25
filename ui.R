@@ -58,7 +58,6 @@ ui <- fluidPage(
                       hr(),
                       # Stacked Bar Chart
                       plotlyOutput("barChart_vrel", height = "70vh"),
-
                       # set interactive boxes
                       fluidRow(
                         column(3,
@@ -95,6 +94,15 @@ ui <- fluidPage(
                                  choices = crim_hom_vrel$geo %>% str_unique(),
                                  multiple = FALSE,
                                  selected = "Italy"
+                               )
+                        ),
+                        column(3,
+                               selectizeInput(
+                                 inputId = "time_vrel_bar",
+                                 label = "Year",
+                                 choices = crim_hom_vrel$time %>% str_unique(),
+                                 multiple = FALSE,
+                                 selected = "2021-01-01"
                                )
                         )
                       ), # this close fluidRow
@@ -153,7 +161,6 @@ ui <- fluidPage(
                       
                       # Stacked Bar Chart
                       plotlyOutput("barChart_vage", height = "70vh"),
-                      
                       # set interactive boxes
                       fluidRow(
                         column(3,
@@ -195,6 +202,138 @@ ui <- fluidPage(
                                  choices = crim_hom_vage$geo %>% str_unique(),
                                  multiple = FALSE,
                                  selected = "Italy"
+                               )
+                        ),
+                        column(3,
+                               selectizeInput(
+                                 inputId = "time_vage_bar",
+                                 label = "Year",
+                                 choices = crim_hom_vage$time %>% str_unique(),
+                                 multiple = TRUE,
+                                 selected = "2021-01-01"
+                               )
+                        )
+                      ) # close fluidRow
+             ), # this close tabPanel
+             
+             # crim_hom_soff
+             tabPanel("Homicide and Sexual Offences by Legal Status",
+                      # set tab title
+                      titlePanel("Intentional homicide and sexual offences by legal status and sex of the person involved - number and rate for the relevant sex group"),
+                      
+                      # separator
+                      hr(),
+                      # set plot name and dimension soff
+                      plotlyOutput("linePlot_soff", height = "70vh"),
+                      
+                      # set interactive boxes
+                      fluidRow(
+                        column(3,
+                               selectizeInput(
+                                 inputId = "iccs_soff",
+                                 label = "ICCS",
+                                 choices = crim_hom_soff$iccs %>% str_unique(),
+                                 multiple = TRUE,
+                                 selected = "Intentional homicide"
+                               )
+                        ),
+                        column(3,
+                               selectizeInput(
+                                 inputId = "leg_stat_soff",
+                                 label = "Legal Status",
+                                 choices = crim_hom_soff$leg_stat %>% str_unique(),
+                                 multiple = FALSE,
+                                 selected = "Victim"
+                               )
+                        ),
+                        column(3,
+                               selectizeInput(
+                                 inputId = "sex_soff",
+                                 label = "Sex",
+                                 choices = crim_hom_soff$sex %>% str_unique(),
+                                 multiple = TRUE,
+                                 selected = c("Females", "Males")
+                               )
+                        ),
+                        column(3,
+                               selectizeInput(
+                                 inputId = "unit_soff",
+                                 label = "Unit",
+                                 choices = crim_hom_soff$unit %>% str_unique(),
+                                 multiple = FALSE,
+                                 selected = "Number"
+                               )
+                        ),
+                        column(3,
+                               selectizeInput(
+                                 inputId = "geo_soff",
+                                 label = "Country",
+                                 choices = crim_hom_soff$geo %>% str_unique(),
+                                 multiple = TRUE,
+                                 selected = "Italy"
+                               )
+                        )
+                      ), # this close fluidRow
+                      
+                      # Stacked Bar Chart soff
+                      plotlyOutput("barChart_soff", height = "70vh"),
+                      # set interactive boxes
+                      fluidRow(
+                        column(3,
+                               selectizeInput(
+                                 inputId = "iccs_soff_bar",
+                                 label = "ICCS",
+                                 choices = crim_hom_soff$iccs %>% str_unique(),
+                                 multiple = TRUE,
+                                 selected = c("Intentional homicide",
+                                              "Rape",
+                                              "Sexual assault"
+                                              )
+                                 )
+                        ),
+                        column(3,
+                               selectizeInput(
+                                 inputId = "leg_stat_soff_bar",
+                                 label = "Legal Status",
+                                 choices = crim_hom_soff$leg_stat %>% str_unique(),
+                                 multiple = TRUE,
+                                 selected = "Victim"
+                               )
+                        ),
+                        column(3,
+                               selectizeInput(
+                                 inputId = "sex_soff_bar",
+                                 label = "Sex",
+                                 choices = crim_hom_soff$sex %>% str_unique(),
+                                 multiple = TRUE,
+                                 selected = c("Females", "Males")
+                               )
+                        ),
+                        column(3,
+                               selectizeInput(
+                                 inputId = "unit_soff_bar",
+                                 label = "Unit",
+                                 choices = crim_hom_soff$unit %>% str_unique(),
+                                 multiple = FALSE,
+                                 selected = "Number"
+                               )
+                        ),
+                        column(3,
+                               selectizeInput(
+                                 inputId = "geo_soff_bar",
+                                 label = "Country",
+                                 choices = crim_hom_soff$geo %>% str_unique(),
+                                 multiple = FALSE,
+                                 selected = "Italy"
+                               )
+                        ),
+                        column(3,
+                               selectizeInput(
+                                 inputId = "time_soff_bar",
+                                 label = "Year",
+                                 choices = crim_hom_soff$time %>% str_unique(),
+                                 multiple = TRUE,
+                                 selected = "2021-01-01"
                                )
                         )
                       ) # close fluidRow

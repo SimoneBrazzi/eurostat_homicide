@@ -5,6 +5,7 @@ library("magrittr")
 library("forcats")
 library("lubridate")
 library("eurostat")
+library("RColorBrewer")
 
 library("rmarkdown")
 
