@@ -1,18 +1,3 @@
-library("tidyverse")
-library("stringr")
-library("dplyr")
-library("magrittr")
-library("lubridate")
-library("eurostat")
-
-library("rmarkdown")
-
-library("shiny")
-library("shinythemes")
-library("ggplot2")
-library("plotly")
-library("rsconnect")
-
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
   
