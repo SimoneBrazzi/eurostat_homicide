@@ -1,15 +1,31 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
+library("tidyverse")
+library("stringr")
+library("dplyr")
+library("magrittr")
+library("lubridate")
+library("eurostat")
+
+library("rmarkdown")
+
+library("shiny")
+library("shinythemes")
+library("ggplot2")
+library("plotly")
+library("rsconnect")
+
+# search in eurostat db
+homicide <- search_eurostat("homicide")
+
+# import data to variable
+crim_hom_vrel <- get_eurostat("crim_hom_vrel", time_format = "date")
+
+# convert all observations to understandable data
+crim_hom_vrel <- label_eurostat(crim_hom_vrel)
+# order data by country and date for time series purpose
+crim_hom_vrel <- crim_hom_vrel %>% 
+  arrange(geo, time)
 
 
-
-# Define UI for application that draws a histogram
 ui <- fluidPage(
   # set dark theme
   theme = shinythemes::shinytheme("darkly"),
@@ -31,10 +47,10 @@ ui <- fluidPage(
                                  inputId = "pers_cat_vrel",
                                  label = "Person Category",
                                  choices = crim_hom_vrel$pers_cat %>% str_unique(),
-                                 multiple = TRUE,
+                                 multiple = FALSE,
                                  selected = "Intimate partner"
-                                 )
-                               ),
+                               )
+                        ),
                         column(3,
                                selectizeInput(
                                  inputId = "sex_vrel",
@@ -42,8 +58,8 @@ ui <- fluidPage(
                                  choices = crim_hom_vrel$sex %>% str_unique(),
                                  multiple = TRUE,
                                  selected = c("Females", "Males")
-                                 )
-                               ),
+                               )
+                        ),
                         column(3,
                                selectizeInput(
                                  inputId = "unit_vrel",
@@ -51,8 +67,8 @@ ui <- fluidPage(
                                  choices = crim_hom_vrel$unit %>% str_unique(),
                                  multiple = FALSE,
                                  selected = "Number"
-                                 )
-                               ),
+                               )
+                        ),
                         column(3,
                                selectizeInput(
                                  inputId = "geo_vrel",
@@ -60,55 +76,9 @@ ui <- fluidPage(
                                  choices = crim_hom_vrel$geo %>% str_unique(),
                                  multiple = TRUE,
                                  selected = "Italy"
-                                 )
                                )
-                        ) # this close fluidRow
-                      ) # this close tabPanel
-             ) # this close navbarPAge
+                        )
+                      ) # this close fluidRow
+             ) # this close tabPanel
+  ) # this close navbarPAge
 ) # this close fluidPage
-
-
-# Define server logic required to draw a histogram
-server <- function(input, output, session) {
-  
-  # set dark theme for all plots
-  thematic::thematic_shiny()
-  
-  # crim_hom_vrel
-  data_crim_hom_vrel <- reactive(crim_hom_vrel %>% 
-    filter(
-      pers_cat %in% input$pers_cat_vrel & 
-        sex %in% input$sex_vrel & 
-        unit %in% input$unit_vrel & 
-        geo %in% input$geo_vrel
-    ))
-  
-  # linePlot for crim_hom_vrel
-  output$linePlot_vrel <- renderPlotly({
-    
-    # crim_hom_vrel
-    g <- ggplot(data= data_crim_hom_vrel(),
-                aes(x = time, y = values, color = sex)
-                )+
-      geom_line(aes(linetype = geo))+
-      geom_point(aes(shape = geo))+
-      scale_color_manual(
-        values = c("Males" = "#1B9E77",
-                   "Females" = "#D95F02",
-                   "Total" = "#7570B3"
-                   ))+
-      scale_x_date(
-        date_breaks = "year",
-        date_labels = "%Y"
-      )
-    ggplotly(g) %>% 
-      layout(hovermode = "x")
-    
-  })
-  
-}
-
-
-
-# Run the application 
-shinyApp(ui = ui, server = server)
