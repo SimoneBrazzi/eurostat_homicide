@@ -8,11 +8,11 @@ ui <- fluidPage(
              tabPanel("Victim-Offender Relationship",
                       # set tab title
                       titlePanel("Intentional homicide victims by victim-offender relationship and sex - number and rate for the relevant sex group"),
-                      # set plto name and dimension
+                      # set plot name and dimension
                       plotlyOutput("linePlot_vrel", height = "70vh"),
                       # separator
                       hr(),
-                      # set interactibe boxes
+                      # set interactive boxes
                       fluidRow(
                         column(3,
                                selectizeInput(
@@ -55,7 +55,7 @@ ui <- fluidPage(
              tabPanel("Homicide Victims by Age and Sex",
                       # set tab title
                       titlePanel("Intentional homicide victims by age and sex - number and rate for the relevant sex and age groups"),
-                      # set plto name and dimension
+                      # set plot name and dimension
                       plotlyOutput("linePlot_vage", height = "70vh"),
                       # separator
                       hr(),

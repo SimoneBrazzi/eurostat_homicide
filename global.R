@@ -2,6 +2,7 @@ library("tidyverse")
 library("stringr")
 library("dplyr")
 library("magrittr")
+library("forcats")
 library("lubridate")
 library("eurostat")
 
