@@ -11,7 +11,19 @@ server <- function(input, output, session) {
                                        sex %in% input$sex_vrel & 
                                        unit %in% input$unit_vrel & 
                                        geo %in% input$geo_vrel
-                                   ))
+                                   ) # closing filter
+                                 ) # closing reactive
+  
+  # crim_hom_vage
+  data_crim_hom_vage <- reactive(crim_hom_vage %>% 
+                                   filter(
+                                     age %in% input$age_vage & 
+                                       sex %in% input$sex_vage & 
+                                       unit %in% input$unit_vage & 
+                                       geo %in% input$geo_vage
+                                   ) # closing filter
+  ) # closing reactive
+  
   
   # linePlot for crim_hom_vrel
   output$linePlot_vrel <- renderPlotly({
@@ -26,7 +38,8 @@ server <- function(input, output, session) {
         values = c("Males" = "#1B9E77",
                    "Females" = "#D95F02",
                    "Total" = "#7570B3"
-        ))+
+        ) # close values
+        )+ # close scale_color_manual
       scale_x_date(
         date_breaks = "year",
         date_labels = "%Y"
@@ -34,7 +47,7 @@ server <- function(input, output, session) {
     ggplotly(g) %>% 
       layout(hovermode = "x")
     
-  })
+  }) # close renderPlotly
   
-}
+} # close server function
 
