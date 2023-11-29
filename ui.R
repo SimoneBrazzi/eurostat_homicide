@@ -18,7 +18,7 @@ ui <- fluidPage(
                       fluidRow(
                         column(3,
                                selectizeInput(
-                                 inputId = "pers_cat_vrel",
+                                 inputId = "pers_cat_vrel_linePlot",
                                  label = "Person Category",
                                  choices = crim_hom_vrel$pers_cat %>% str_unique(),
                                  multiple = TRUE,
@@ -27,7 +27,7 @@ ui <- fluidPage(
                         ),
                         column(3,
                                selectizeInput(
-                                 inputId = "sex_vrel",
+                                 inputId = "sex_vrel_linePlot",
                                  label = "Sex",
                                  choices = crim_hom_vrel$sex %>% str_unique(),
                                  multiple = TRUE,
@@ -36,76 +36,54 @@ ui <- fluidPage(
                         ),
                         column(3,
                                selectizeInput(
-                                 inputId = "unit_vrel",
-                                 label = "Unit",
-                                 choices = crim_hom_vrel$unit %>% str_unique(),
-                                 multiple = FALSE,
-                                 selected = "Number"
-                               )
-                        ),
-                        column(3,
-                               selectizeInput(
-                                 inputId = "geo_vrel",
+                                 inputId = "geo_vrel_linePlot",
                                  label = "Country",
                                  choices = crim_hom_vrel$geo %>% str_unique(),
                                  multiple = TRUE,
                                  selected = "Italy"
+                               )
+                        ),
+                        column(3,
+                               selectizeInput(
+                                 inputId = "unit_vrel_linePlot",
+                                 label = "Unit",
+                                 choices = crim_hom_vrel$unit %>% str_unique(),
+                                 multiple = FALSE,
+                                 selected = "Number"
                                )
                         )
                       ), # this close fluidRow
                       
-                      # separator
                       hr(),
-                      # Stacked Bar Chart
-                      plotlyOutput("barChart_vrel", height = "70vh"),
-                      # set interactive boxes
+                      plotlyOutput("groupedBarchart_vrel", height = "70vh"),
                       fluidRow(
                         column(3,
                                selectizeInput(
-                                 inputId = "pers_cat_vrel_bar",
+                                 inputId = "pers_cat_vrel_groupedBarchart",
                                  label = "Person Category",
-                                 choices = crim_hom_vrel$pers_cat %>% str_unique(),
+                                 choices = crim_hom_vrel_grouped$pers_cat %>% str_unique(),
                                  multiple = TRUE,
-                                 selected = c("Intimate partner", "Family member")
-                               )
+                                 selected = "Intimate partner"
+                                 )
                         ),
                         column(3,
                                selectizeInput(
-                                 inputId = "sex_vrel_bar",
+                                 inputId = "sex_vrel_groupedBarchart",
                                  label = "Sex",
-                                 choices = crim_hom_vrel$sex %>% str_unique(),
+                                 choices = crim_hom_vrel_grouped$sex %>% str_unique(),
                                  multiple = TRUE,
                                  selected = c("Females", "Males")
                                )
                         ),
                         column(3,
                                selectizeInput(
-                                 inputId = "unit_vrel_bar",
-                                 label = "Unit",
-                                 choices = crim_hom_vrel$unit %>% str_unique(),
-                                 multiple = FALSE,
-                                 selected = "Number"
-                               )
-                        ),
-                        column(3,
-                               selectizeInput(
-                                 inputId = "geo_vrel_bar",
+                                 inputId = "geo_vrel_groupedBarchart",
                                  label = "Country",
-                                 choices = crim_hom_vrel$geo %>% str_unique(),
-                                 multiple = FALSE,
-                                 selected = "Italy"
-                               )
-                        ),
-                        column(3,
-                               selectizeInput(
-                                 inputId = "time_vrel_bar",
-                                 label = "Year",
-                                 choices = crim_hom_vrel$time %>% str_unique(),
-                                 multiple = FALSE,
-                                 selected = "2021-01-01"
-                               )
-                        )
-                      ), # this close fluidRow
+                                 choices = crim_hom_vrel_grouped$geo %>% str_unique(),
+                                 multiple = TRUE,
+                                 selected = crim_hom_vrel_grouped$geo %>% str_unique()
+                               ))
+                      )
                       
              ), # this close tabPanel
              
@@ -123,7 +101,7 @@ ui <- fluidPage(
                       fluidRow(
                         column(3,
                                selectizeInput(
-                                 inputId = "age_vage",
+                                 inputId = "age_vage_linePlot",
                                  label = "Age",
                                  choices = crim_hom_vage$age %>% str_unique(),
                                  multiple = TRUE,
@@ -132,7 +110,7 @@ ui <- fluidPage(
                         ),
                         column(3,
                                selectizeInput(
-                                 inputId = "sex_vage",
+                                 inputId = "sex_vage_linePlot",
                                  label = "Sex",
                                  choices = crim_hom_vage$sex %>% str_unique(),
                                  multiple = TRUE,
@@ -141,83 +119,59 @@ ui <- fluidPage(
                         ),
                         column(3,
                                selectizeInput(
-                                 inputId = "unit_vage",
-                                 label = "Unit",
-                                 choices = crim_hom_vage$unit %>% str_unique(),
-                                 multiple = FALSE,
-                                 selected = "Number"
-                               )
-                        ),
-                        column(3,
-                               selectizeInput(
-                                 inputId = "geo_vage",
+                                 inputId = "geo_vage_linePlot",
                                  label = "Country",
                                  choices = crim_hom_vage$geo %>% str_unique(),
                                  multiple = TRUE,
                                  selected = "Italy"
+                               )
+                        ),
+                        column(3,
+                               selectizeInput(
+                                 inputId = "unit_vage_linePlot",
+                                 label = "Unit",
+                                 choices = crim_hom_vage$unit %>% str_unique(),
+                                 multiple = FALSE,
+                                 selected = "Number"
                                )
                         )
                       ), # this close fluidRow
                       
-                      # Stacked Bar Chart
-                      plotlyOutput("barChart_vage", height = "70vh"),
-                      # set interactive boxes
+                      hr(),
+                      # grouped barchart vage
+                      plotlyOutput("groupedBarchart_vage", height = "70vh"),
                       fluidRow(
                         column(3,
                                selectizeInput(
-                                 inputId = "age_vage_bar",
+                                 inputId = "age_groupedBarchart",
                                  label = "Age",
-                                 choices = crim_hom_vage$age %>% str_unique(),
+                                 choices = crim_hom_vage_grouped$age %>% str_unique(),
                                  multiple = TRUE,
-                                 selected = c("Less than 15 years",
-                                              "From 15 to 29 years",
-                                              "From 30 to 44 years",
-                                              "From 45 to 59 years",
-                                              "60 years or over"
-                                              )
+                                 selected = "Total"
                                )
                         ),
                         column(3,
                                selectizeInput(
-                                 inputId = "sex_vage_bar",
+                                 inputId = "sex_vage_groupedBarchart",
                                  label = "Sex",
-                                 choices = crim_hom_vage$sex %>% str_unique(),
+                                 choices = crim_hom_vage_grouped$sex %>% str_unique(),
                                  multiple = TRUE,
                                  selected = c("Females", "Males")
                                )
                         ),
                         column(3,
                                selectizeInput(
-                                 inputId = "unit_vage_bar",
-                                 label = "Unit",
-                                 choices = crim_hom_vage$unit %>% str_unique(),
-                                 multiple = FALSE,
-                                 selected = "Number"
-                               )
-                        ),
-                        column(3,
-                               selectizeInput(
-                                 inputId = "geo_vage_bar",
+                                 inputId = "geo_vage_groupedBarchart",
                                  label = "Country",
-                                 choices = crim_hom_vage$geo %>% str_unique(),
-                                 multiple = FALSE,
-                                 selected = "Italy"
-                               )
-                        ),
-                        column(3,
-                               selectizeInput(
-                                 inputId = "time_vage_bar",
-                                 label = "Year",
-                                 choices = crim_hom_vage$time %>% str_unique(),
+                                 choices = crim_hom_vage_grouped$geo %>% str_unique(),
                                  multiple = TRUE,
-                                 selected = "2021-01-01"
-                               )
-                        )
-                      ) # close fluidRow
+                                 selected = crim_hom_vage_grouped$geo %>% str_unique()
+                               ))
+                      )
              ), # this close tabPanel
              
              # crim_hom_soff
-             tabPanel("Homicide and Sexual Offences by Legal Status",
+             tabPanel("Homicide and Sexual Offences by Crime Classification and Legal Status",
                       # set tab title
                       titlePanel("Intentional homicide and sexual offences by legal status and sex of the person involved - number and rate for the relevant sex group"),
                       
@@ -230,8 +184,8 @@ ui <- fluidPage(
                       fluidRow(
                         column(3,
                                selectizeInput(
-                                 inputId = "iccs_soff",
-                                 label = "ICCS",
+                                 inputId = "iccs_soff_linePlot",
+                                 label = "Crime Classification",
                                  choices = crim_hom_soff$iccs %>% str_unique(),
                                  multiple = TRUE,
                                  selected = "Intentional homicide"
@@ -239,7 +193,7 @@ ui <- fluidPage(
                         ),
                         column(3,
                                selectizeInput(
-                                 inputId = "leg_stat_soff",
+                                 inputId = "leg_stat_soff_linePlot",
                                  label = "Legal Status",
                                  choices = crim_hom_soff$leg_stat %>% str_unique(),
                                  multiple = FALSE,
@@ -248,7 +202,7 @@ ui <- fluidPage(
                         ),
                         column(3,
                                selectizeInput(
-                                 inputId = "sex_soff",
+                                 inputId = "sex_soff_linePlot",
                                  label = "Sex",
                                  choices = crim_hom_soff$sex %>% str_unique(),
                                  multiple = TRUE,
@@ -257,86 +211,64 @@ ui <- fluidPage(
                         ),
                         column(3,
                                selectizeInput(
-                                 inputId = "unit_soff",
-                                 label = "Unit",
-                                 choices = crim_hom_soff$unit %>% str_unique(),
-                                 multiple = FALSE,
-                                 selected = "Number"
-                               )
-                        ),
-                        column(3,
-                               selectizeInput(
-                                 inputId = "geo_soff",
+                                 inputId = "geo_soff_linePlot",
                                  label = "Country",
                                  choices = crim_hom_soff$geo %>% str_unique(),
                                  multiple = TRUE,
                                  selected = "Italy"
+                               )
+                        ),
+                        column(3,
+                               selectizeInput(
+                                 inputId = "unit_soff_linePlot",
+                                 label = "Unit",
+                                 choices = crim_hom_soff$unit %>% str_unique(),
+                                 multiple = FALSE,
+                                 selected = "Number"
                                )
                         )
                       ), # this close fluidRow
                       
-                      # Stacked Bar Chart soff
-                      plotlyOutput("barChart_soff", height = "70vh"),
-                      # set interactive boxes
+                      hr(),
+                      # stacked barchart soff
+                      plotlyOutput("groupedBarchart_soff", height = "70vh"),
                       fluidRow(
                         column(3,
                                selectizeInput(
-                                 inputId = "iccs_soff_bar",
-                                 label = "ICCS",
-                                 choices = crim_hom_soff$iccs %>% str_unique(),
+                                 inputId = "iccs_soff_groupedBarchart",
+                                 label = "Crime Classification",
+                                 choices = crim_hom_soff_grouped$iccs %>% str_unique(),
                                  multiple = TRUE,
-                                 selected = c("Intentional homicide",
-                                              "Rape",
-                                              "Sexual assault"
-                                              )
-                                 )
+                                 selected = "Intentional homicide"
+                               )
                         ),
                         column(3,
                                selectizeInput(
-                                 inputId = "leg_stat_soff_bar",
+                                 inputId = "leg_stat_soff_groupedBarchart",
                                  label = "Legal Status",
-                                 choices = crim_hom_soff$leg_stat %>% str_unique(),
-                                 multiple = TRUE,
+                                 choices = crim_hom_soff_grouped$leg_stat %>% str_unique(),
+                                 multiple = FALSE,
                                  selected = "Victim"
                                )
                         ),
                         column(3,
                                selectizeInput(
-                                 inputId = "sex_soff_bar",
+                                 inputId = "sex_soff_groupedBarchart",
                                  label = "Sex",
-                                 choices = crim_hom_soff$sex %>% str_unique(),
+                                 choices = crim_hom_soff_grouped$sex %>% str_unique(),
                                  multiple = TRUE,
                                  selected = c("Females", "Males")
                                )
                         ),
                         column(3,
                                selectizeInput(
-                                 inputId = "unit_soff_bar",
-                                 label = "Unit",
-                                 choices = crim_hom_soff$unit %>% str_unique(),
-                                 multiple = FALSE,
-                                 selected = "Number"
-                               )
-                        ),
-                        column(3,
-                               selectizeInput(
-                                 inputId = "geo_soff_bar",
+                                 inputId = "geo_soff_groupedBarchart",
                                  label = "Country",
-                                 choices = crim_hom_soff$geo %>% str_unique(),
-                                 multiple = FALSE,
-                                 selected = "Italy"
-                               )
-                        ),
-                        column(3,
-                               selectizeInput(
-                                 inputId = "time_soff_bar",
-                                 label = "Year",
-                                 choices = crim_hom_soff$time %>% str_unique(),
+                                 choices = crim_hom_soff_grouped$geo %>% str_unique(),
                                  multiple = TRUE,
-                                 selected = "2021-01-01"
-                               )
-                        )
-                      ) # close fluidRow
+                                 selected = crim_hom_soff_grouped$geo %>% str_unique()
+                               ))
+                      )
              ) # this close tabPanel
   ) # this close navbarPage
 ) # this close fluidPage

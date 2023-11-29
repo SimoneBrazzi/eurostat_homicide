@@ -4,78 +4,70 @@ server <- function(input, output, session) {
   # set dark theme for all plots
   thematic::thematic_shiny()
   
-  # crim_hom_vrel lineplot
-  data_crim_hom_vrel <- reactive(crim_hom_vrel %>% 
+  # VREL LINEPLOT
+  data_crim_hom_vrel_linePlot <- reactive(crim_hom_vrel %>% 
                                    filter(
-                                     pers_cat %in% input$pers_cat_vrel & 
-                                       sex %in% input$sex_vrel & 
-                                       unit %in% input$unit_vrel & 
-                                       geo %in% input$geo_vrel
+                                     pers_cat %in% input$pers_cat_vrel_linePlot & 
+                                       sex %in% input$sex_vrel_linePlot & 
+                                       unit %in% input$unit_vrel_linePlot & 
+                                       geo %in% input$geo_vrel_linePlot
                                    ) # closing filter
                                  ) # closing reactive
   
-  # crim_hom_vrel stacked barchart
-  data_crim_hom_vrel_bar <- reactive(crim_hom_vrel %>% 
+  # VREL GROUPED
+  data_crim_hom_vrel_grouped_barChart <- reactive(crim_hom_vrel_grouped %>% 
+                                          filter(
+                                            sex %in% input$sex_vrel_groupedBarchart & 
+                                              pers_cat %in% input$pers_cat_vrel_groupedBarchart
+                                                 )
+                                          )
+  
+  # VAGE LINEPLOT
+  data_crim_hom_vage_linePlot <- reactive(crim_hom_vage %>% 
                                    filter(
-                                     pers_cat %in% input$pers_cat_vrel_bar & 
-                                       sex %in% input$sex_vrel_bar & 
-                                       unit %in% input$unit_vrel_bar & 
-                                       geo %in% input$geo_vrel_bar &
-                                       time %in% input$time_vrel_bar
+                                     age %in% input$age_vage_linePlot & 
+                                       sex %in% input$sex_vage_linePlot & 
+                                       unit %in% input$unit_vage_linePlot & 
+                                       geo %in% input$geo_vage_linePlot
+                                   ) # closing filter
+  ) # closing reactive
+
+  # VAGE GROUPED
+  data_crim_hom_vage_grouped_barChart <- reactive(crim_hom_vage_grouped %>% 
+                                                    filter(
+                                                      sex %in% input$sex_vage_groupedBarchart & 
+                                                        age %in% input$age_groupedBarchart
+                                                    )
+  )
+  
+  
+  # SOFF LINEPLOT
+  data_crim_hom_soff_linePlot <- reactive(crim_hom_soff %>% 
+                                   filter(
+                                     iccs %in% input$iccs_soff_linePlot & 
+                                       leg_stat %in% input$leg_stat_soff_linePlot & 
+                                       unit %in% input$unit_soff_linePlot &
+                                       sex %in% input$sex_soff_linePlot & 
+                                       geo %in% input$geo_soff_linePlot
                                    ) # closing filter
   ) # closing reactive
   
-  # crim_hom_vage lineplot
-  data_crim_hom_vage <- reactive(crim_hom_vage %>% 
-                                   filter(
-                                     age %in% input$age_vage & 
-                                       sex %in% input$sex_vage & 
-                                       unit %in% input$unit_vage & 
-                                       geo %in% input$geo_vage
-                                   ) # closing filter
-  ) # closing reactive
-  # crim_hom_vage stacked barchart
-  data_crim_hom_vage_bar <- reactive(crim_hom_vage %>% 
-                                   filter(
-                                     age %in% input$age_vage_bar & 
-                                       sex %in% input$sex_vage_bar & 
-                                       unit %in% input$unit_vage_bar & 
-                                       geo %in% input$geo_vage_bar &
-                                       time %in% input$time_vage_bar
-                                   ) # closing filter
-  ) # closing reactive
-  
-  
-  # crim_hom_soff lineplot
-  data_crim_hom_soff <- reactive(crim_hom_soff %>% 
-                                   filter(
-                                     iccs %in% input$iccs_soff & 
-                                       leg_stat %in% input$leg_stat_soff & 
-                                       unit %in% input$unit_soff &
-                                       sex %in% input$sex_soff & 
-                                       geo %in% input$geo_soff
-                                   ) # closing filter
-  ) # closing reactive
-  # crim_hom_soff stacked barchart
-  data_crim_hom_soff_bar <- reactive(crim_hom_soff %>% 
-                                       filter(
-                                         iccs %in% input$iccs_soff_bar &
-                                           leg_stat %in% input$leg_stat_soff_bar &
-                                           sex %in% input$sex_soff_bar & 
-                                           unit %in% input$unit_soff_bar & 
-                                           geo %in% input$geo_soff_bar &
-                                           time %in% input$time_soff_bar
-                                       ) # closing filter
-  ) # closing reactive
-  
+  # SOFF GROUPED
+  data_crim_hom_soff_grouped_barChart <- reactive(crim_hom_soff_grouped %>% 
+                                                    filter(
+                                                      sex %in% input$sex_soff_groupedBarchart & 
+                                                        iccs %in% input$iccs_soff_groupedBarchart &
+                                                        leg_stat %in% input$leg_stat_soff_groupedBarchart
+                                                        
+                                                    )
+                                                  )
   
 
   
-  # linePlot for crim_hom_vrel
+  # VREL LINEPLOT
   output$linePlot_vrel <- renderPlotly({
     
-    # crim_hom_vrel
-    g <- ggplot(data= data_crim_hom_vrel(),
+    g <- ggplot(data= data_crim_hom_vrel_linePlot(),
                 aes(x = time, y = values, color = sex)
     )+
       geom_line(aes(linetype = geo))+
@@ -90,37 +82,45 @@ server <- function(input, output, session) {
         date_breaks = "year",
         date_labels = "%Y"
       )+
-      labs(x = "Time",
-           y = input$unit_vrel
-      )
-    ggplotly(g) %>% 
-      layout(hovermode = "x")
-  })
-  
-  # crim_hom_vrel stackedBarchart
-  output$barChart_vrel <- renderPlotly({
-    g <- ggplot(data = data_crim_hom_vrel_bar(),
-                aes(x = sex, y = values, fill = pers_cat)
-                )+
-      geom_bar(stat = "identity")+
-      scale_fill_manual(
-        values = c("Family member" = "#1F78B4",
-                   "Intimate partner" = "#B2DF8A",
-                   "Intimate partner or family member" = "#A6CEE3"
-                   )
+      labs(title = "Time Series by Relationship of the Victim to the Perpetrator",
+           subtitle = "By Sex and Country",
+           x = "Time",
+           y = input$unit_vrel_linePlot,
+           color = "Sex",
+           linetype = "Country",
+           shape = "",
+           caption = "Source: Eurostat"
       )+
-      labs(x = "Sex",
-           y = input$unit_vrel_bar)
+      scale_y_continuous(breaks = scales::breaks_pretty(n = 10))
     ggplotly(g) %>% 
       layout(hovermode = "x")
   })
   
+  # VREL GROUPED BARCHART
+  output$groupedBarchart_vrel <- renderPlotly({
+  g <- ggplot(data_crim_hom_vrel_grouped_barChart(),
+              aes(x = time, y = values_grouped, fill = geo)
+              )+
+    geom_bar(stat = "identity")+
+    labs(title = "Homicide victims by relationship to perpetrator",
+         subtitle = "Grouped by country",
+         x = "Years",
+         y = "Values",
+         fill = "Country",
+         caption = "Source: Eurostat"
+         )+
+    scale_fill_manual(values = palette_crim_hom_vrel_grouped)+
+    # scale integers from 0 to max value with tick every 100
+    scale_y_continuous(breaks = scales::breaks_pretty(n = 10))+
+    facet_grid(pers_cat ~ sex)
+  ggplotly(g)
+  })
   
-  # linePlot for crim_hom_vage
+
+  # VAGE LINEPLOT
   output$linePlot_vage <- renderPlotly({
     
-    # crim_hom_vage
-    g <- ggplot(data= data_crim_hom_vage(),
+    g <- ggplot(data= data_crim_hom_vage_linePlot(),
                 aes(x = time, y = values, color = sex)
     )+
       geom_line(aes(linetype = geo))+
@@ -135,44 +135,47 @@ server <- function(input, output, session) {
         date_breaks = "year",
         date_labels = "%Y"
       )+
-      labs(x = "Time",
-           y = input$unit_vage
-      )
+      labs(title = "Time Series by Age of the Victim",
+           subtitle = "By Sex and Country",
+           x = "Time",
+           y = input$unit_vage_linePlot,
+           color = "Sex",
+           linetype = "Country",
+           shape = "",
+           caption = "Source: Eurostat"
+      )+
+      scale_y_continuous(breaks = scales::breaks_pretty(n = 10))
     ggplotly(g) %>% 
       layout(hovermode = "x")
     
     
   }) # close renderPlotly
   
-  
-  # crim_hom_vage stackedBarchart
-  output$barChart_vage <- renderPlotly({
-    g <- ggplot(data = data_crim_hom_vage_bar(),
-                aes(x = sex, y = values, fill = age)
+  # VAGE GROUPED BARCHART
+  output$groupedBarchart_vage <- renderPlotly({
+    g <- ggplot(data_crim_hom_vage_grouped_barChart(),
+                aes(x = time, y = values_grouped, fill = geo)
     )+
       geom_bar(stat = "identity")+
-      scale_fill_manual(
-        values = c("Less than 15 years" = "#1F78B4",
-                   "From 15 to 29 years" = "#B2DF8A",
-                   "From 30 to 44 years" = "#33A02C",
-                   "From 45 to 59 years" = "#FB9A99",
-                   "60 years or over" = "#E31A1C",
-                   "Total" = "#A6CEE3")
+      labs(title = "Victims of Homicide by Age and Country",
+           subtitle = "Grouped by country",
+           x = "Years",
+           y = "Values",
+           fill = "Country",
+           caption = "Source: Eurostat"
       )+
-      labs(x = "Sex",
-           y = input$unit_vage_bar)
-    # ggplotly interactivity
-    ggplotly(g) %>% 
-      layout(hovermode = "x")
+      scale_fill_manual(values = palette_crim_hom_vage_grouped)+
+      # scale integers from 0 to max value with tick every 100
+      scale_y_continuous(breaks = scales::breaks_pretty(n = 10))+
+      facet_grid(age ~ sex)
+    ggplotly(g)
   })
   
-  
     
-    # linePlot for crim_hom_soff
+    # SOFF LINEPLOT
     output$linePlot_soff <- renderPlotly({
       
-      # crim_hom_soff
-      g <- ggplot(data= data_crim_hom_soff(),
+      g <- ggplot(data= data_crim_hom_soff_linePlot(),
                   aes(x = time, y = values, color = sex)
       )+
         geom_line(aes(linetype = geo))+
@@ -187,34 +190,42 @@ server <- function(input, output, session) {
           date_breaks = "year",
           date_labels = "%Y"
         )+
-        labs(x = "Time",
-             y = input$unit_soff
-             )
+        labs(title = "Time Series by Crime Classification and Legal Status",
+             subtitle = "By Sex and Country",
+             x = "Time",
+             y = input$unit_soff_linePlot,
+             color = "Sex",
+             linetype = "Country",
+             shape = "",
+             caption = "Source: Eurostat"
+             )+
+        scale_y_continuous(breaks = scales::breaks_pretty(n = 10))
       ggplotly(g) %>% 
         layout(hovermode = "x")
         
     
   }) # close renderPlotly
     
-    
-    # crim_hom_soff stackedBarchart
-    output$barChart_soff <- renderPlotly({
-      g <- ggplot(data = data_crim_hom_soff_bar(),
-                  aes(x = sex, y = values, fill = iccs)
+    # SOFF GROUPED BARCHART
+    output$groupedBarchart_soff <- renderPlotly({
+      g <- ggplot(data_crim_hom_soff_grouped_barChart(),
+                  aes(x = time, y = values_grouped, fill = geo)
       )+
         geom_bar(stat = "identity")+
-        scale_fill_manual(
-          values = c("Intentional homicide" = "#A6CEE3",
-                     "Rape" = "#1F78B4",
-                     "Sexual assault" = "#B2DF8A")
+        labs(title = "Crime classification by Country and Legal Status",
+             subtitle = "Grouped by country",
+             x = "Years",
+             y = "Values",
+             fill = "Country",
+             caption = "Source: Eurostat"
         )+
-        labs(x = "Sex",
-             y = input$unit_soff_bar)
-      # ggplotly interactivity
-      ggplotly(g) %>% 
-        layout(hovermode = "x")
+        scale_fill_manual(values = palette_crim_hom_soff_grouped)+
+        scale_y_continuous(breaks = scales::breaks_pretty(n = 10))+
+        facet_grid(iccs ~ sex)
+      ggplotly(g)
     })
 
+    
   
 } # close server function
 
