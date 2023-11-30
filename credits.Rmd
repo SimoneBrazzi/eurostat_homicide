@@ -1,0 +1,28 @@
+---
+fontsize: 18pt
+---
+
+This dashboard is created using R.
+The following packages are used:
+
+* [tidyverse](https://www.tidyverse.org/) for the data wrangling.
+* [shiny](https://shiny.posit.com/) for the dashboard.
+* [eurostat](https://ropengov.github.io/eurostat/index.html) for the data.
+* [ggplot2](https://ggplot2.tidyverse.org/) for beautiful plots.
+* [plotly](https://plotly.com/r/) for interactive plots.
+* [waiter](https://waiter.john-coene.com/#/) for the loading screen.
+* [scales](https://scales.r-lib.org/) for the formatting of the plots.
+* [RcolorBrewer](https://cran.r-project.org/web/packages/RColorBrewer/index.html) for the color palettes.
+
+
+Color palette is choosen from [ColorBrewer](https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3). All colors are colorblind safe.
+
+
+Powered by [RStudio](https://rstudio.com/).
+
+
+
+
+
+[Simone Brazzi](https://www.linkedin.com/in/simone-brazzi-1b1b0a1b3/)
+

@@ -5,7 +5,7 @@ account: d4jtd9-simonebrazzi
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 10614378
-bundleId: 7985046
+bundleId: 7988349
 url: https://d4jtd9-simonebrazzi.shinyapps.io/Homicide_Eurostat/
 version: 1
 asMultiple: FALSE

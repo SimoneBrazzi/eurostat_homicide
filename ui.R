@@ -1,4 +1,8 @@
 ui <- fluidPage(
+  
+  useWaiter(), 
+  waiterShowOnLoad(html = spin_hexdots()),
+  
   # set dark theme
   theme = shinythemes::shinytheme("darkly"),
   
@@ -11,6 +15,7 @@ ui <- fluidPage(
                       
                       # separator
                       hr(),
+                      
                       # set plot name and dimension
                       plotlyOutput("linePlot_vrel", height = "70vh"),
                       
@@ -267,8 +272,13 @@ ui <- fluidPage(
                                  choices = crim_hom_soff_grouped$geo %>% str_unique(),
                                  multiple = TRUE,
                                  selected = crim_hom_soff_grouped$geo %>% str_unique()
-                               ))
-                      )
-             ) # this close tabPanel
+                                 )
+                               )
+                      ) # this close fluidRow
+             ), # this close tabPanel
+             tabPanel(
+               "Credits",
+               includeMarkdown("credits.Rmd")
+             )
   ) # this close navbarPage
 ) # this close fluidPage

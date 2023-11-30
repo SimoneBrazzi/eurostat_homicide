@@ -1,6 +1,9 @@
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
   
+  Sys.sleep(4) # do something that takes time
+  waiter_hide()
+  
   # set dark theme for all plots
   thematic::thematic_shiny()
   
@@ -61,11 +64,11 @@ server <- function(input, output, session) {
                                                         
                                                     )
                                                   )
-  
 
-  
   # VREL LINEPLOT
   output$linePlot_vrel <- renderPlotly({
+    
+    
     
     g <- ggplot(data= data_crim_hom_vrel_linePlot(),
                 aes(x = time, y = values, color = sex)
@@ -94,10 +97,14 @@ server <- function(input, output, session) {
       scale_y_continuous(breaks = scales::breaks_pretty(n = 10))
     ggplotly(g) %>% 
       layout(hovermode = "x")
-  })
   
+  })
+
   # VREL GROUPED BARCHART
   output$groupedBarchart_vrel <- renderPlotly({
+    
+    
+    
   g <- ggplot(data_crim_hom_vrel_grouped_barChart(),
               aes(x = time, y = values_grouped, fill = geo)
               )+
@@ -115,10 +122,12 @@ server <- function(input, output, session) {
     facet_grid(pers_cat ~ sex)
   ggplotly(g)
   })
-  
+
 
   # VAGE LINEPLOT
   output$linePlot_vage <- renderPlotly({
+    
+    
     
     g <- ggplot(data= data_crim_hom_vage_linePlot(),
                 aes(x = time, y = values, color = sex)
@@ -147,12 +156,12 @@ server <- function(input, output, session) {
       scale_y_continuous(breaks = scales::breaks_pretty(n = 10))
     ggplotly(g) %>% 
       layout(hovermode = "x")
-    
-    
   }) # close renderPlotly
-  
+ 
   # VAGE GROUPED BARCHART
   output$groupedBarchart_vage <- renderPlotly({
+    
+    
     g <- ggplot(data_crim_hom_vage_grouped_barChart(),
                 aes(x = time, y = values_grouped, fill = geo)
     )+
@@ -174,6 +183,8 @@ server <- function(input, output, session) {
     
     # SOFF LINEPLOT
     output$linePlot_soff <- renderPlotly({
+      
+      
       
       g <- ggplot(data= data_crim_hom_soff_linePlot(),
                   aes(x = time, y = values, color = sex)
@@ -206,8 +217,12 @@ server <- function(input, output, session) {
     
   }) # close renderPlotly
     
+
     # SOFF GROUPED BARCHART
     output$groupedBarchart_soff <- renderPlotly({
+      
+      
+      
       g <- ggplot(data_crim_hom_soff_grouped_barChart(),
                   aes(x = time, y = values_grouped, fill = geo)
       )+
@@ -224,8 +239,7 @@ server <- function(input, output, session) {
         facet_grid(iccs ~ sex)
       ggplotly(g)
     })
-
     
-  
+ 
 } # close server function
 
