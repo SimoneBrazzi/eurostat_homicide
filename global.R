@@ -8,9 +8,7 @@ library("lubridate")
 library("writexl")
 library("eurostat")
 library("RColorBrewer")
-
-library("rmarkdown")
-
+library("markdown")
 library("shiny")
 library("shinythemes")
 library("waiter")
@@ -18,6 +16,7 @@ library("ggplot2")
 library("scales")
 library("plotly")
 library("rsconnect")
+
 
 # search in eurostat db
 homicide <- search_eurostat("homicide")
@@ -101,9 +100,4 @@ palette_crim_hom_soff_grouped <- rep(
 #           "Rape" = "#1F78B4",
 #           "Sexual assault" = "#B2DF8A")
 #)
-
-
-
-
-
 

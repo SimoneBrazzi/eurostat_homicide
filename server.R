@@ -239,7 +239,7 @@ server <- function(input, output, session) {
         facet_grid(iccs ~ sex)
       ggplotly(g)
     })
-    
+
  
 } # close server function
 

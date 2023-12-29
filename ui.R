@@ -276,9 +276,10 @@ ui <- fluidPage(
                                )
                       ) # this close fluidRow
              ), # this close tabPanel
-             tabPanel(
-               "Credits",
-               includeMarkdown("credits.Rmd")
-             )
-  ) # this close navbarPage
-) # this close fluidPage
+             
+             tabPanel("Credits",
+                      htmltools::includeMarkdown("credits.Rmd")
+                      )
+             
+             ) # this close tabsetPanel
+  ) # this close dashboardBody
