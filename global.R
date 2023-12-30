@@ -1,3 +1,4 @@
+# wrangling
 library("tidyverse")
 library("readr")
 library("stringr")
@@ -7,15 +8,17 @@ library("forcats")
 library("lubridate")
 library("writexl")
 library("eurostat")
-library("RColorBrewer")
-library("markdown")
+# plotting and dashboarding
 library("shiny")
 library("shinythemes")
-library("waiter")
 library("ggplot2")
-library("scales")
 library("plotly")
+library("scales")
+library("RColorBrewer")
+library("waiter")
+# connecting and other
 library("rsconnect")
+library("markdown")
 
 
 # search in eurostat db
