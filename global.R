@@ -37,6 +37,10 @@ crim_hom_soff <- label_eurostat(crim_hom_soff)
 # label_eurostat_vars(crim_hom_vrel)
 # label_eurostat_vars(crim_hom_vage)
 # label_eurostat_vars(crim_hom_soff)
+crim_hom_vrel <- crim_hom_vrel %>% rename(time = TIME_PERIOD)
+crim_hom_vage <- crim_hom_vage %>% rename(time = TIME_PERIOD)
+crim_hom_soff <- crim_hom_soff%>% rename(time = TIME_PERIOD)
+
 
 # order data by country and date for time series purpose
 crim_hom_vrel <- crim_hom_vrel %>% 
