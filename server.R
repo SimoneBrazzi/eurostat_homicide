@@ -28,6 +28,7 @@ server <- function(input, output, session) {
   # VAGE LINEPLOT
   data_crim_hom_vage_linePlot <- reactive(crim_hom_vage %>% 
                                    filter(
+                                     iccs %in% input$iccs_vage_linePlot &
                                      age %in% input$age_vage_linePlot & 
                                        sex %in% input$sex_vage_linePlot & 
                                        unit %in% input$unit_vage_linePlot & 

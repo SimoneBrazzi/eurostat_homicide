@@ -106,6 +106,15 @@ ui <- fluidPage(
                       fluidRow(
                         column(3,
                                selectizeInput(
+                                 inputId = "iccs_vage_linePlot",
+                                 label = "Crime Classification",
+                                 choices = crim_hom_vage$iccs %>% str_unique(),
+                                 multiple = TRUE,
+                                 selected = "Intentional homicide"
+                               )
+                        ),
+                        column(3,
+                               selectizeInput(
                                  inputId = "age_vage_linePlot",
                                  label = "Age",
                                  choices = crim_hom_vage$age %>% str_unique(),

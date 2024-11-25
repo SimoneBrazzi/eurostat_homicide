@@ -25,9 +25,24 @@ library("markdown")
 homicide <- search_eurostat("homicide")
 
 # import data to variable
-crim_hom_vrel <- get_eurostat("crim_hom_vrel", time_format = "date")
-crim_hom_vage <- get_eurostat("crim_hom_vage", time_format = "date")
-crim_hom_soff <- get_eurostat("crim_hom_soff", time_format = "date")
+crim_hom_vrel <- get_eurostat(
+  "crim_hom_vrel",
+  time_format = "date",
+  cache = TRUE,
+  update_cache = TRUE
+  )
+crim_hom_vage <- get_eurostat(
+  "crim_hom_vage",
+  time_format = "date",
+  cache = TRUE,
+  update_cache = TRUE
+  )
+crim_hom_soff <- get_eurostat(
+  "crim_hom_soff",
+  time_format = "date",
+  cache = TRUE,
+  update_cache = TRUE
+  )
 
 # convert all observations to understandable data
 crim_hom_vrel <- label_eurostat(crim_hom_vrel)
@@ -71,40 +86,18 @@ crim_hom_soff_grouped <- crim_hom_soff %>%
 
 # brewer.pal(11, "RdYlBu")
 palette <- c("#A50026", "#D73027", "#F46D43", "#FDAE61", "#FEE090", "#FFFFBF", "#E0F3F8", "#ABD9E9", "#74ADD1", "#4575B4", "#313695")
+pubu <- RColorBrewer::brewer.pal(9, "PuBu")
+
 
 palette_crim_hom_vrel_grouped <- rep(
   palette,
   length.out = crim_hom_vrel_grouped$geo %>% str_unique() %>% length()
   )
-
 palette_crim_hom_vage_grouped <- rep(
   palette,
   length.out = crim_hom_vage_grouped$geo %>% str_unique() %>% length()
 )
-
 palette_crim_hom_soff_grouped <- rep(
   palette,
   length.out = crim_hom_soff_grouped$geo %>% str_unique() %>% length()
 )
-
-
-
-
-
-# crim_hom_vage stackedBarchart
-
-#scale_fill_manual(
-#  values = c("Less than 15 years" = "#1F78B4",
-#             "From 15 to 29 years" = "#B2DF8A",
-#             "From 30 to 44 years" = "#33A02C",
-#             "From 45 to 59 years" = "#FB9A99",
-#             "60 years or over" = "#E31A1C",
-#             "Total" = "#A6CEE3")
-#)
-
-#        scale_fill_manual(
-# values = c("Intentional homicide" = "#A6CEE3",
-#           "Rape" = "#1F78B4",
-#           "Sexual assault" = "#B2DF8A")
-#)
-
