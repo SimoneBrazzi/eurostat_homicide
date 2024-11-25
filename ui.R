@@ -109,7 +109,7 @@ ui <- fluidPage(
                                  inputId = "iccs_vage_linePlot",
                                  label = "Crime Classification",
                                  choices = crim_hom_vage$iccs %>% str_unique(),
-                                 multiple = TRUE,
+                                 multiple = FALSE,
                                  selected = "Intentional homicide"
                                )
                         ),

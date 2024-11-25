@@ -1,11 +1,11 @@
 name: Homicide_Eurostat
-title: Homicide_Eurostat
+title: eurostat_homicide
 username: d4jtd9-simonebrazzi
 account: d4jtd9-simonebrazzi
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 10614378
-bundleId: 8165482
+bundleId: 9415336
 url: https://d4jtd9-simonebrazzi.shinyapps.io/Homicide_Eurostat/
 version: 1
 asMultiple: FALSE
